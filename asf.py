@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 
-from ASFWidget import Ui_ASFWidget
+from Ui.ASFWidget import Ui_ASFWidget
 
 
 class CASFForm(QWidget, Ui_ASFWidget):

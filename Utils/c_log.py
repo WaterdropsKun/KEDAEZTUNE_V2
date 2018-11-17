@@ -1,7 +1,7 @@
 # 打印函数名
 import inspect
 
-class Log(object):
+class CLog(object):
     def __init__(self):
         self.__strLog = ""
 

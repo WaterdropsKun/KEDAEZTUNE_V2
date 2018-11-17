@@ -11,14 +11,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_GammaWidget(object):
     def setupUi(self, GammaWidget):
         GammaWidget.setObjectName("GammaWidget")
-        GammaWidget.resize(400, 400)
+        GammaWidget.resize(512, 512)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(GammaWidget.sizePolicy().hasHeightForWidth())
         GammaWidget.setSizePolicy(sizePolicy)
-        GammaWidget.setMinimumSize(QtCore.QSize(400, 400))
-        GammaWidget.setMaximumSize(QtCore.QSize(400, 400))
+        GammaWidget.setMinimumSize(QtCore.QSize(512, 512))
+        GammaWidget.setMaximumSize(QtCore.QSize(512, 512))
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(GammaWidget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
 

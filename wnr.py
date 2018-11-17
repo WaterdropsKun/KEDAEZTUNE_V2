@@ -7,13 +7,13 @@ from enum import Enum
 import os
 
 # Ui
-from WNRWidget import Ui_WNRWidget
+from Ui.WNRWidget import Ui_WNRWidget
 # Log
-from log import Log
+from Utils.c_log import CLog
 # adb
 from adb import CAdb, ADB_COMMAND
 # txt
-import python_txt
+import Utils.python_txt
 
 
 class TWNR_NUMBER(Enum):
@@ -55,7 +55,7 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
         self.m_tWNR = TWNR()
 
-        self.__cLog = Log()
+        self.__cLog = CLog()
         self.__cAdb = CAdb()
 
 
@@ -154,7 +154,7 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
         # listData以行为元素的列表
         strFilesPath = os.getcwd() + "\\Files\\wnrW.txt"
-        listData = python_txt.txtRead(strFilesPath).split()
+        listData = Utils.python_txt.txtRead(strFilesPath).split()
         self.__cLog.LogAppend(str(listData))
 
         for i in range(TWNR_NUMBER.WNR_NUM.value):
@@ -179,7 +179,7 @@ class CWNRForm(QWidget, Ui_WNRWidget):
         self.__cLog.LogAppend(strData)
 
         strFilesPath = os.getcwd() + "\\Files\\wnr.txt"
-        python_txt.txtWrite(strFilesPath, strData)
+        Utils.python_txt.txtWrite(strFilesPath, strData)
 
         return self.__cLog.GetLog()
 

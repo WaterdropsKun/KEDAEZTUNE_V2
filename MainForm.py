@@ -5,7 +5,7 @@ import sys
 
 
 # Ui
-from MainWindow import Ui_MainWindow
+from Ui.MainWindow import Ui_MainWindow
 # adb
 from adb import CAdb, ADB_COMMAND
 # WNR
@@ -40,14 +40,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def Test(self):
         print("Test")   ###
-        self.SendAdbCommand(ADB_COMMAND.NONE_CMD)
+        self.SendAdbCommand(ADB_COMMAND.WNR_CMD)
 
         #DebugMK 添加子窗口
         self.ChildrenForm.addWidget(self.cWNRForm)
         self.ChildrenForm.addWidget(self.cASFForm)
         self.ChildrenForm.addWidget(self.cGammaForm)
         self.cASFForm.hide()
+        self.cWNRForm.hide()
         self.cGammaForm.hide()
+
         self.cWNRForm.show()
 
 
