@@ -11,9 +11,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_WNRWidget(object):
     def setupUi(self, WNRWidget):
         WNRWidget.setObjectName("WNRWidget")
-        WNRWidget.resize(400, 400)
-        WNRWidget.setMinimumSize(QtCore.QSize(400, 400))
-        WNRWidget.setMaximumSize(QtCore.QSize(400, 400))
+        WNRWidget.resize(512, 512)
+        WNRWidget.setMinimumSize(QtCore.QSize(512, 512))
+        WNRWidget.setMaximumSize(QtCore.QSize(512, 512))
         self.verticalLayout = QtWidgets.QVBoxLayout(WNRWidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
