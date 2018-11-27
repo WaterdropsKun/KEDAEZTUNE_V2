@@ -2,12 +2,12 @@ from Utils.KEDAEZTUNE_types import *
 
 class CSpline(object):
     def __init__(self):
-        self.__DataPointsList = []
+        self.__DataPointsList = []   # 输入点集
         self.__ControlPointsList = []
-        self.__SplinePointsList = []
+        self.__SplinePointsList = []   # 输出点集
 
-        self.__dPrecision = 1
-        self.__bIsXCalibrated = True
+        self.__dPrecision = 1   # 精度
+        self.__bIsXCalibrated = True   # 是否以x为横坐标
         self.__nMaxWidth = 1023
         self.__nMaxHeight = 65535
 
@@ -18,17 +18,35 @@ class CSpline(object):
     def nMaxHeightSet(self, nMaxHeight):
         self.__nMaxHeight = nMaxHeight
 
-    def DataPointsListSet(self, DataPointsList):
-        self.__DataPointsList = DataPointsList
-
     def dPrecisionSet(self, dPrecision):
         self.__dPrecision = dPrecision
 
     def dPrecisionGet(self):
         return self.__dPrecision
 
+
+    def DataPointsListSet(self, DataPointsList):
+        self.__DataPointsList = DataPointsList
+
     def SplinePointsListGet(self):
-        pass
+        self.GetSplinePoints()
+
+        PointTmp = []
+        PointTmp.append(self.__DataPointsList[0])
+        for i in range(1, len(self.__SplinePointsList)-1):
+            PointTmp.append(self.__SplinePointsList[i])
+
+            if PointTmp[i].x < 0:
+                PointTmp[i].x = 0
+            if PointTmp[i].x > self.__nMaxWidth:
+                PointTmp[i].x = self.__nMaxWidth
+            if PointTmp[i].y < 0:
+                PointTmp[i].y = 0
+            if PointTmp[i].y > self.__nMaxHeight:
+                PointTmp[i].y = self.__nMaxHeight
+        PointTmp.append(self.__DataPointsList[len(self.__DataPointsList)-1])
+
+        return PointTmp
 
 
     def GetSplinePoints(self):
@@ -90,9 +108,9 @@ class CSpline(object):
 
         if self.__DataPointsList != [] and len(self.__DataPointsList) > 3:
             self.__ControlPointsList = []
-            diag = []
-            sub = []
-            sup = []
+            diag = []   # tridiagonal matrix a(i , i)
+            sub = []    # tridiagonal matrix a(i , i-1)
+            sup = []    # tridiagonal matrix a(i , i+1)
 
             n = len(self.__DataPointsList)
             for i in range(n):
@@ -101,6 +119,7 @@ class CSpline(object):
                 sub.append(1)
                 sup.append(1)
 
+            # 放大6倍
             self.__ControlPointsList[1] = 6 * self.__ControlPointsList[1] - self.__ControlPointsList[0]
             self.__ControlPointsList[n - 2] = 6 * self.__ControlPointsList[n - 2] - self.__ControlPointsList[n - 1]
             for i in range(2, n-2):
@@ -121,14 +140,14 @@ class CSpline(object):
 
 if __name__ == '__main__':
     DataPointsList = [Point(0, 0), Point(50, 50), Point(120, 120), Point(150, 150), Point(255, 255)]
+    # DataPointsList = [Point(0, 0), Point(255, 255)]
 
     cSpline = CSpline()
     cSpline.DataPointsListSet(DataPointsList)
-    cSpline.GetSplinePoints()
+    cSpline.SplinePointsListGet()
 
-    DebugMK = 0
 
-    cSpline.GetSplinePoints()
+
 
 
 

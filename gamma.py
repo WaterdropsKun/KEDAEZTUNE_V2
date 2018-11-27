@@ -13,6 +13,8 @@ from Utils.KEDAEZTUNE_types import *
 from Utils.c_log import CLog
 # txt
 import Utils.python_txt
+# 曲线
+from Utils.c_spline import CSpline
 
 
 class CGammaForm(QWidget, Ui_GammaWidget):
@@ -20,7 +22,11 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         super(CGammaForm, self).__init__()
         self.setupUi(self)
 
-        self.PointsList = []
+        self.__PointsList = []
+        self.__DragPointsList = [Point(0, 512), Point(256, 256), Point(512, 0)]
+
+        self.__bDragFlag = False
+        self.__nDragPointIndex = 0
 
         self.__cLog = CLog()
 
@@ -33,7 +39,6 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
         # Draw box
         size = self.size()
-        print(size)
         Height = size.height() - 1
         Width = size.width() - 1
         qPen = QPen(Qt.black, 1, Qt.SolidLine)
@@ -43,14 +48,28 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         qPainter.drawLine(Width, Height, Width, 0)
         qPainter.drawLine(Width, 0, 0, 0)
 
-        # qPainter.setPen(QColor(168, 34, 3))
-        qPainter.setPen(Qt.red)
-        qPainter.setBrush(Qt.red)
-        nPointNum = len(self.PointsList) - 1
+        cSpline = CSpline()
+        # 画Gamma曲线
+        qPainter.setPen(Qt.black)   # qPainter.setPen(QColor(168, 34, 3))
+        cSpline.DataPointsListSet(self.__PointsList)
+        SplinePointsList = cSpline.SplinePointsListGet()
+        nPointNum = len(SplinePointsList) - 1
         for i in range(nPointNum):
-            qPainter.drawEllipse(self.PointsList[i].x, self.PointsList[i].y, 5, 5)
-            qPainter.drawLine(self.PointsList[i].x, self.PointsList[i].y,
-                              self.PointsList[i + 1].x, self.PointsList[i + 1].y)
+            qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
+                              SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
+        # 画拖拽曲线
+        qPainter.setPen(Qt.red)
+        cSpline.DataPointsListSet(self.__DragPointsList)
+        SplinePointsList = cSpline.SplinePointsListGet()
+        nPointNum = len(SplinePointsList) - 1
+        for i in range(nPointNum):
+            qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
+                              SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
+        # 标记拖拽点
+        qPainter.setBrush(Qt.red)
+        nPointNum = len(self.__DragPointsList) - 1
+        for i in range(nPointNum):
+            qPainter.drawEllipse(self.__DragPointsList[i].x, self.__DragPointsList[i].y, 3, 3)
 
         qPainter.end()
 
@@ -58,34 +77,49 @@ class CGammaForm(QWidget, Ui_GammaWidget):
     def mousePressEvent(self, QMouseEvent):
         if QMouseEvent.button() == Qt.LeftButton:
             print("鼠标按下事件_左键")
+
             x = QMouseEvent.x()
             y = QMouseEvent.y()
-            self.PointsList.append(Point(x, y))
-            self.update()
 
-        elif QMouseEvent.button() == Qt.RightButton:
-            print("鼠标按下事件_右键")
-
-        elif QMouseEvent.button() == Qt.MidButton:
-            print("鼠标按下事件_点击滚轮")
-            self.PointsList = []
-            self.update()
+            for i in range(1, len(self.__DragPointsList)):
+                if x > self.__DragPointsList[i-1].x + 8 and x < self.__DragPointsList[i].x - 8 and y > 0 and y < self.height():
+                    self.__DragPointsList.insert(i, Point(x, y))
+                    self.__bDragFlag = True
+                    self.__nDragPointIndex = i
+                    self.update()
+            # 判断点击点16*16范围是否有拖拽点
+            for i in range(0, len(self.__DragPointsList)):
+                if self.__DragPointsList[i].x > x - 8 and self.__DragPointsList[i].x < x + 8 and self.__DragPointsList[i].y > y - 8 and self.__DragPointsList[i].y < y + 8:
+                    self.__bDragFlag = True
+                    self.__nDragPointIndex = i
 
 
     def mouseReleaseEvent(self, QMouseEvent):
-        if QMouseEvent.button() == Qt.LeftButton:
-            print("鼠标释放事件_左键")
-        elif QMouseEvent.button() == Qt.RightButton:
-            print("鼠标释放事件_右键")
-        elif QMouseEvent.button() == Qt.MidButton:
-            print("鼠标释放事件_点击滚轮")
+        if self.__bDragFlag:
+            self.__bDragFlag = False
+
 
     def mouseMoveEvent(self, QMouseEvent):
         print("鼠标移动事件")
         x = QMouseEvent.x()
         y = QMouseEvent.y()
-        self.PointsList.append(Point(x, y))
-        self.update()
+
+        if self.__bDragFlag and self.__nDragPointIndex > 0 and self.__nDragPointIndex < len(self.__PointsList) - 1:
+            if x > self.__DragPointsList[self.__nDragPointIndex - 1].x + 8 and x < self.__DragPointsList[self.__nDragPointIndex + 1].x - 8:
+                self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
+            else:
+                del self.__DragPointsList[self.__nDragPointIndex]
+                self.__bDragFlag = False
+                self.update()
+
+        if self.__bDragFlag and self.__nDragPointIndex == 0 and x < self.__PointsList[1].x - 20:
+            self.__DragPointsList[0] = Point(x, y)
+
+        if self.__bDragFlag and self.__nDragPointIndex == len(self.__PointsList) - 1 and x > self.__PointsList[len(self.__PointsList) - 2].x + 20:
+            self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
+
+        if self.__bDragFlag:
+            self.update()
 
 
     ############################################################
@@ -117,12 +151,13 @@ class CGammaForm(QWidget, Ui_GammaWidget):
             LGamma512Line = [int(x) for x in LGamma512Line if x != '']
             LGamma512.extend(LGamma512Line)
 
-        BGamma32 = self.DownSamplePoints(LGamma512)
-        print(BGamma32)  ###
-        self.PointsList.append(Point(0, 512))
+
+        BGamma32 = self.DownSamplePoints(BGamma512)
+        print(BGamma32)   ###
+        self.__PointsList.append(Point(0, 512))
         for i in range(32):
-            self.PointsList.append(Point(i * 16, (255 - BGamma32[i]) * 2))
-        self.PointsList.append(Point(512, 0))
+            self.__PointsList.append(Point(i * 16, (255 - BGamma32[i]) * 2))
+        self.__PointsList.append(Point(512, 0))
 
         return self.__cLog.GetLog()
 

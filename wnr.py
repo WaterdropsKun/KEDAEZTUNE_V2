@@ -42,10 +42,10 @@ class TWNR:
         self.Weight_Y = []
         self.Weight_Chroma = []
 
-# txt每行参数4个
-WNR_VALUE_NUM = 4
 # adb通讯次数
 PULL_NUM = 10
+# txt每行参数4个
+WNR_VALUE_NUM = 4
 
 
 class CWNRForm(QWidget, Ui_WNRWidget):
@@ -154,6 +154,7 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
         # listData以行为元素的列表
         strFilesPath = os.getcwd() + "\\Files\\wnrW.txt"
+
         listData = Utils.python_txt.txtRead(strFilesPath).split()
         self.__cLog.LogAppend(str(listData))
 
