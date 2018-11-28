@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QPainter, QColor, QFont, QPen
+from PyQt5.QtGui import QPainter, QColor, QFont, QPen, QPixmap
 from PyQt5.QtCore import Qt
 
 # 路径
@@ -32,10 +32,17 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
         self.ReadTGamma()
 
+        ###
+        self.__qPixmap = QPixmap(512, 512)
+        self.__qPixmap.fill(Qt.white)
+
 
     def paintEvent(self, event):
-        qPainter = QPainter(self)
-        qPainter.begin(self)
+        ###
+        self.__qPixmap.fill(Qt.white)
+
+        qPainter = QPainter(self.__qPixmap)
+        qPainter.begin(self.__qPixmap)
 
         # Draw box
         size = self.size()
@@ -72,6 +79,10 @@ class CGammaForm(QWidget, Ui_GammaWidget):
             qPainter.drawEllipse(self.__DragPointsList[i].x, self.__DragPointsList[i].y, 3, 3)
 
         qPainter.end()
+
+        ###
+        self.label.setPixmap(self.__qPixmap)
+        self.__qPixmap.save(os.getcwd() + "\\Files\\result.png")
 
 
     def mousePressEvent(self, QMouseEvent):

@@ -20,7 +20,12 @@ class Ui_GammaWidget(object):
         GammaWidget.setMinimumSize(QtCore.QSize(512, 512))
         GammaWidget.setMaximumSize(QtCore.QSize(512, 512))
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(GammaWidget)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label = QtWidgets.QLabel(GammaWidget)
+        self.label.setText("")
+        self.label.setObjectName("label")
+        self.verticalLayout_2.addWidget(self.label)
 
         self.retranslateUi(GammaWidget)
         QtCore.QMetaObject.connectSlotsByName(GammaWidget)
