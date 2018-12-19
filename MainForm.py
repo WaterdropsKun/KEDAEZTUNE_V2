@@ -50,7 +50,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cWNRForm.hide()
         self.cGammaForm.hide()
 
-        self.cGammaForm.show()
+        self.cWNRForm.show()
 
 
     def AdbConnect(self):

@@ -25,96 +25,105 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         self.__PointsList = []
         self.__DragPointsList = [Point(0, 512), Point(256, 256), Point(512, 0)]
 
-        self.__bDragFlag = False
+        self.__bPaintFlag = True  # 左键按下开始绘制，弹起结束绘制
+        self.__bDragFlag = False   # 拖拽曲线标志位
         self.__nDragPointIndex = 0
-
-        self.__cLog = CLog()
-
-        self.ReadTGamma()
 
         ###
         self.__qPixmap = QPixmap(512, 512)
-        self.__qPixmap.fill(Qt.white)
+
+        self.__cLog = CLog()
+        self.__cSpline = CSpline()
+
+        self.ReadTGamma()
 
 
     def paintEvent(self, event):
-        ###
-        self.__qPixmap.fill(Qt.white)
+        if self.__bPaintFlag:
+            print("绘制事件")
+            ###
+            self.__qPixmap.fill(Qt.white)
 
-        qPainter = QPainter(self.__qPixmap)
-        qPainter.begin(self.__qPixmap)
+            qPainter = QPainter(self.__qPixmap)
+            qPainter.begin(self.__qPixmap)
 
-        # Draw box
-        size = self.size()
-        Height = size.height() - 1
-        Width = size.width() - 1
-        qPen = QPen(Qt.black, 1, Qt.SolidLine)
-        qPainter.setPen(qPen)
-        qPainter.drawLine(0, 0, 0, Height)
-        qPainter.drawLine(0, Height, Width, Height)
-        qPainter.drawLine(Width, Height, Width, 0)
-        qPainter.drawLine(Width, 0, 0, 0)
+            # Draw box
+            size = self.size()
+            Height = size.height() - 1
+            Width = size.width() - 1
+            qPen = QPen(Qt.black, 1, Qt.SolidLine)
+            qPainter.setPen(qPen)
+            qPainter.drawLine(0, 0, 0, Height)
+            qPainter.drawLine(0, Height, Width, Height)
+            qPainter.drawLine(Width, Height, Width, 0)
+            qPainter.drawLine(Width, 0, 0, 0)
 
-        cSpline = CSpline()
-        # 画Gamma曲线
-        qPainter.setPen(Qt.black)   # qPainter.setPen(QColor(168, 34, 3))
-        cSpline.DataPointsListSet(self.__PointsList)
-        SplinePointsList = cSpline.SplinePointsListGet()
-        nPointNum = len(SplinePointsList) - 1
-        for i in range(nPointNum):
-            qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
-                              SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
-        # 画拖拽曲线
-        qPainter.setPen(Qt.red)
-        cSpline.DataPointsListSet(self.__DragPointsList)
-        SplinePointsList = cSpline.SplinePointsListGet()
-        nPointNum = len(SplinePointsList) - 1
-        for i in range(nPointNum):
-            qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
-                              SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
-        # 标记拖拽点
-        qPainter.setBrush(Qt.red)
-        nPointNum = len(self.__DragPointsList) - 1
-        for i in range(nPointNum):
-            qPainter.drawEllipse(self.__DragPointsList[i].x, self.__DragPointsList[i].y, 3, 3)
+            # 画Gamma曲线
+            qPainter.setPen(Qt.black)   # qPainter.setPen(QColor(168, 34, 3))
+            self.__cSpline.DataPointsListSet(self.__PointsList)
+            SplinePointsList = self.__cSpline.SplinePointsListGet()
+            nPointNum = len(SplinePointsList) - 1
+            for i in range(nPointNum):
+                qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
+                                  SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
+            # 画拖拽曲线
+            qPainter.setPen(Qt.red)
+            self.__cSpline.DataPointsListSet(self.__DragPointsList)
+            SplinePointsList = self.__cSpline.SplinePointsListGet()
+            nPointNum = len(SplinePointsList) - 1
+            for i in range(nPointNum):
+                qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
+                                  SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
+            # 标记拖拽点
+            qPainter.setBrush(Qt.red)
+            nPointNum = len(self.__DragPointsList) - 1
+            for i in range(nPointNum):
+                qPainter.drawEllipse(self.__DragPointsList[i].x, self.__DragPointsList[i].y, 3, 3)
 
-        qPainter.end()
+            qPainter.end()
 
-        ###
-        self.label.setPixmap(self.__qPixmap)
-        self.__qPixmap.save(os.getcwd() + "\\Files\\result.png")
+            ###
+            self.label.setPixmap(self.__qPixmap)
+            self.__qPixmap.save(os.getcwd() + "\\Files\\result.png")
 
 
     def mousePressEvent(self, QMouseEvent):
         if QMouseEvent.button() == Qt.LeftButton:
-            print("鼠标按下事件_左键")
+            # print("鼠标按下事件_左键")
 
             x = QMouseEvent.x()
             y = QMouseEvent.y()
 
+            # 以插入点为拖拽点
             for i in range(1, len(self.__DragPointsList)):
                 if x > self.__DragPointsList[i-1].x + 8 and x < self.__DragPointsList[i].x - 8 and y > 0 and y < self.height():
                     self.__DragPointsList.insert(i, Point(x, y))
                     self.__bDragFlag = True
                     self.__nDragPointIndex = i
                     self.update()
-            # 判断点击点16*16范围是否有拖拽点
+            # 判断点击点16*16范围是否有拖拽点，以原来点作为拖拽点
             for i in range(0, len(self.__DragPointsList)):
                 if self.__DragPointsList[i].x > x - 8 and self.__DragPointsList[i].x < x + 8 and self.__DragPointsList[i].y > y - 8 and self.__DragPointsList[i].y < y + 8:
                     self.__bDragFlag = True
                     self.__nDragPointIndex = i
+
+            self.__bPaintFlag = True
 
 
     def mouseReleaseEvent(self, QMouseEvent):
         if self.__bDragFlag:
             self.__bDragFlag = False
 
+        if self.__bPaintFlag:
+            self.__bPaintFlag = False
+
 
     def mouseMoveEvent(self, QMouseEvent):
-        print("鼠标移动事件")
+        # print("鼠标移动事件")
         x = QMouseEvent.x()
         y = QMouseEvent.y()
 
+        # 实时更新拖拽点或合并拖拽点
         if self.__bDragFlag and self.__nDragPointIndex > 0 and self.__nDragPointIndex < len(self.__PointsList) - 1:
             if x > self.__DragPointsList[self.__nDragPointIndex - 1].x + 8 and x < self.__DragPointsList[self.__nDragPointIndex + 1].x - 8:
                 self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
@@ -122,10 +131,9 @@ class CGammaForm(QWidget, Ui_GammaWidget):
                 del self.__DragPointsList[self.__nDragPointIndex]
                 self.__bDragFlag = False
                 self.update()
-
+        # 首尾拖拽点更新
         if self.__bDragFlag and self.__nDragPointIndex == 0 and x < self.__PointsList[1].x - 20:
             self.__DragPointsList[0] = Point(x, y)
-
         if self.__bDragFlag and self.__nDragPointIndex == len(self.__PointsList) - 1 and x > self.__PointsList[len(self.__PointsList) - 2].x + 20:
             self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
 
@@ -164,7 +172,7 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
 
         BGamma32 = self.DownSamplePoints(BGamma512)
-        print(BGamma32)   ###
+        # print(BGamma32)   ###
         self.__PointsList.append(Point(0, 512))
         for i in range(32):
             self.__PointsList.append(Point(i * 16, (255 - BGamma32[i]) * 2))

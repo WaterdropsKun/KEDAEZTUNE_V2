@@ -10,6 +10,7 @@ import os
 from Ui.WNRWidget import Ui_WNRWidget
 # Log
 from Utils.c_log import CLog
+from Utils.c_logger import Logger
 # adb
 from adb import CAdb, ADB_COMMAND
 # txt
@@ -48,6 +49,7 @@ PULL_NUM = 10
 WNR_VALUE_NUM = 4
 
 
+log = Logger().getlog()
 class CWNRForm(QWidget, Ui_WNRWidget):
     def __init__(self):
         super(CWNRForm, self).__init__()
@@ -74,13 +76,15 @@ class CWNRForm(QWidget, Ui_WNRWidget):
                 break
 
         if ret == True:
-            self.__cLog.LogAppend(strLog)  # DebugMK
+            self.__cLog.LogAppend(strLog)   # DebugMK
             self.__cLog.LogAppend("Adb pull wnrW.txt succeed!")  # DebugMK
             self.__UpdataTWNR()
         else:
-            self.__cLog.LogAppend(strLog)  # DebugMK
+            self.__cLog.LogAppend(strLog)   # DebugMK
             self.__cLog.LogAppend("Adb pull wnrW.txt failed!")  # DebugMK
 
+        print(self.__cLog.GetLog())   # DebugMK
+        log.info(self.__cLog.GetLog())
         return self.__cLog.GetLog()
 
 
@@ -89,6 +93,8 @@ class CWNRForm(QWidget, Ui_WNRWidget):
         1、跟新结构体，写入txt
         2、adb push
         '''
+        self.__cLog.LogClear()
+
         self.__SetTWNR()
 
         strLog, ret = self.__cAdb.AdbPushDeviceTxt("wnr")
@@ -103,9 +109,10 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
     def __UpdataTWNR(self):
         '''txt--->结构体--->控件'''
+        print(self.__cLog.GetLog())  # DebugMK
         self.__cLog.LogClear()
 
-        strLog = self.ReadTWNR()
+        strLog = self.__ReadTWNR()
         self.__cLog.LogAppend(strLog)
 
         for i in range(TWNR_NUMBER.WNR_NUM.value):
@@ -128,6 +135,7 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
     def __SetTWNR(self):
         '''控件--->结构体--->txt'''
+        print(self.__cLog.GetLog())  # DebugMK
         self.__cLog.LogClear()
 
         for i in range(TWNR_NUMBER.WNR_NUM.value):
@@ -143,13 +151,14 @@ class CWNRForm(QWidget, Ui_WNRWidget):
                     floatTmp = float(self.findChild(QtWidgets.QLineEdit, self.WNRControlsLineNumber(i)+str(j)).text())
                     self.GetTWNRLineNumber(i)[j] = float(floatTmp)
 
-        strLog = self.WriteTWNR()
+        strLog = self.__WriteTWNR()
         self.__cLog.LogAppend(strLog)
 
         return self.__cLog.GetLog()
 
 
-    def ReadTWNR(self):
+    def __ReadTWNR(self):
+        print(self.__cLog.GetLog())  # DebugMK
         self.__cLog.LogClear()
 
         # listData以行为元素的列表
@@ -165,7 +174,8 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
         return self.__cLog.GetLog()
 
-    def WriteTWNR(self):
+    def __WriteTWNR(self):
+        print(self.__cLog.GetLog())  # DebugMK
         self.__cLog.LogClear()
 
         strData = ""

@@ -116,7 +116,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_2.setText(_translate("MainWindow", "adb连接"))
-        self.lineEdit.setText(_translate("MainWindow", "10.82.3.210"))
+        self.lineEdit.setText(_translate("MainWindow", "10.82.9.111"))
         self.groupBox.setTitle(_translate("MainWindow", "Camera"))
         self.radioButton.setText(_translate("MainWindow", "Camera0"))
         self.radioButton_2.setText(_translate("MainWindow", "Camera1"))
