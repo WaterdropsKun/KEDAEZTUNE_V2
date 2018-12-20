@@ -4,7 +4,7 @@ import os.path
 import time
 
 
-class Logger(object):
+class CLogNew(object):
     def __init__(self, logger = None):
         """
         指定保存日志的文件路径，日志级别，以及调用文件
@@ -18,18 +18,19 @@ class Logger(object):
         self.log_time = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
         # os.getcwd()获取当前文件的路径，os.path.dirname()获取指定文件路径的上级路径
         self.log_path = os.getcwd() + "/Files/Logs/"
-        self.log_name = self.log_path + self.log_time + ".log"
+        # self.log_name = self.log_path + self.log_time + ".log"
+        self.log_name = self.log_path + "DebugMK" + ".log"
 
         # 创建一个handler，用于写入日志文件
-        fh = logging.FileHandler(self.log_name, 'a', encoding='utf-8')
+        fh = logging.FileHandler(self.log_name, 'w', encoding='utf-8')
         fh.setLevel(logging.INFO)
 
-        # 再创建一个handler，用于输出到控制台
+        # 创建一个handler，用于输出到控制台
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
 
         # 定义handler的输出格式
-        formatter = logging.Formatter('[%(asctime)s] %(filename)s->%(funcName)s line:%(lineno)d [%(levelname)s]%(message)s')
+        formatter = logging.Formatter('[%(asctime)s] %(filename)s->%(funcName)s line:%(lineno)d [%(levelname)s]\n%(message)s\n')
         fh.setFormatter(formatter)
         ch.setFormatter(formatter)
 

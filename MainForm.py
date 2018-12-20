@@ -22,6 +22,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
+        # signal slot
+        # 菜单栏信号槽函数关联
+        self.TestAction.triggered.connect(self.Test)
+
         # 初始化子窗口
         self.cWNRForm = CWNRForm()
         self.cASFForm = CASFForm()
@@ -32,14 +36,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 初始化操作（adb连接 + 发送命令）
         self.AdbConnect()
-        self.SendAdbCommand(ADB_COMMAND.WNR_CMD)
-
-        # DebugMK 菜单栏信号槽函数关联
-        self.TestaAction.triggered.connect(self.Test)
+        self.SendAdbCommand(ADB_COMMAND.NONE_CMD)
 
 
     def Test(self):
-        print("Test")   ###
+        print("Test")   # DebugMK
         self.SendAdbCommand(ADB_COMMAND.WNR_CMD)
 
         #DebugMK 添加子窗口

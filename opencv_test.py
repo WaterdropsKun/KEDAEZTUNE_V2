@@ -47,6 +47,5 @@ def CV2QImage(cv_image):
 if __name__ == '__main__':
     qPixmap = QPixmap(512, 512)
     qPixmap.fill(Qt.white)
-    print(888)
 
 

@@ -6,7 +6,7 @@ import subprocess
 import os
 
 # Log
-from Utils.c_log import CLog
+from Utils.c_log_old import CLogOld
 
 
 class ADB_COMMAND(Enum):
@@ -16,7 +16,7 @@ class ADB_COMMAND(Enum):
 
 class CAdb(object):
     def __init__(self):
-        self.__cLog = CLog()
+        self.__cLog = CLogOld()
 
 
     def AdbConnectDevice(self, strDeviceIP):

@@ -10,7 +10,7 @@ from Ui.GammaWidget import Ui_GammaWidget
 # types
 from Utils.KEDAEZTUNE_types import *
 # Log
-from Utils.c_log import CLog
+from Utils.c_log_old import CLogOld
 # txt
 import Utils.python_txt
 # 曲线
@@ -32,7 +32,7 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         ###
         self.__qPixmap = QPixmap(512, 512)
 
-        self.__cLog = CLog()
+        self.__cLog = CLogOld()
         self.__cSpline = CSpline()
 
         self.ReadTGamma()
@@ -40,7 +40,7 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
     def paintEvent(self, event):
         if self.__bPaintFlag:
-            print("绘制事件")
+            # print("绘制事件")
             ###
             self.__qPixmap.fill(Qt.white)
 
