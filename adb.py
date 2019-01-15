@@ -12,6 +12,8 @@ from Utils.c_log_old import CLogOld
 class ADB_COMMAND(Enum):
     NONE_CMD = 0
     WNR_CMD = 1
+    ASF_CMD = 2
+    GAMMA_CMD = 3
 
 
 class CAdb(object):

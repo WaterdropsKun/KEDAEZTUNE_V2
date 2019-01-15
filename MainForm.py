@@ -41,7 +41,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def Test(self):
         print("Test")   # DebugMK
-        self.SendAdbCommand(ADB_COMMAND.WNR_CMD)
+        self.SendAdbCommand(ADB_COMMAND.GAMMA_CMD)
 
         #DebugMK 添加子窗口
         self.ChildrenForm.addWidget(self.cWNRForm)
@@ -51,7 +51,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cWNRForm.hide()
         self.cGammaForm.hide()
 
-        self.cWNRForm.show()
+        self.cGammaForm.show()
 
 
     def AdbConnect(self):

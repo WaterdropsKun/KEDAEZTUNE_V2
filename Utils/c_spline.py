@@ -2,11 +2,11 @@ from Utils.KEDAEZTUNE_types import *
 
 class CSpline(object):
     def __init__(self):
-        self.__DataPointsList = []   # 输入点集
+        self.__DataPointsList = []     # 输入点集
         self.__ControlPointsList = []
         self.__SplinePointsList = []   # 输出点集
 
-        self.__dPrecision = 1   # 精度
+        self.__dPrecision = 1          # 精度
         self.__bIsXCalibrated = True   # 是否以x为横坐标
         self.__nMaxWidth = 1023
         self.__nMaxHeight = 65535

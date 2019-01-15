@@ -22,15 +22,14 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         super(CGammaForm, self).__init__()
         self.setupUi(self)
 
-        self.__PointsList = []
-        self.__DragPointsList = [Point(0, 512), Point(256, 256), Point(512, 0)]
+        self.__PointsList = []                                                    # 存放读取的Gamma曲线
+        self.__DragPointsList = [Point(0, 512), Point(256, 256), Point(512, 0)]   # 存放拖拽的Gamma曲线
 
-        self.__bPaintFlag = True  # 左键按下开始绘制，弹起结束绘制
+        self.__bPaintFlag = True   # 左键按下开始绘制，弹起结束绘制，减少绘制次数
         self.__bDragFlag = False   # 拖拽曲线标志位
-        self.__nDragPointIndex = 0
+        self.__nDragPointIndex = 0   # 实时拖拽点在点集中的序号
 
-        ###
-        self.__qPixmap = QPixmap(512, 512)
+        self.__qPixmap = QPixmap(512, 512)   # 画布
 
         self.__cLog = CLogOld()
         self.__cSpline = CSpline()
@@ -40,7 +39,6 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
     def paintEvent(self, event):
         if self.__bPaintFlag:
-            # print("绘制事件")
             ###
             self.__qPixmap.fill(Qt.white)
 
@@ -82,26 +80,24 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
             qPainter.end()
 
-            ###
+            # 画布保存成图片
             self.label.setPixmap(self.__qPixmap)
             self.__qPixmap.save(os.getcwd() + "\\Files\\result.png")
 
 
     def mousePressEvent(self, QMouseEvent):
         if QMouseEvent.button() == Qt.LeftButton:
-            # print("鼠标按下事件_左键")
-
             x = QMouseEvent.x()
             y = QMouseEvent.y()
 
-            # 以插入点为拖拽点
+            # 判断拖拽点横坐标16*16范围是否有点击点，如没有，以插入点为拖拽点
             for i in range(1, len(self.__DragPointsList)):
                 if x > self.__DragPointsList[i-1].x + 8 and x < self.__DragPointsList[i].x - 8 and y > 0 and y < self.height():
                     self.__DragPointsList.insert(i, Point(x, y))
                     self.__bDragFlag = True
                     self.__nDragPointIndex = i
                     self.update()
-            # 判断点击点16*16范围是否有拖拽点，以原来点作为拖拽点
+            # 判断点击点16*16范围是否有拖拽点，如有，以原来点作为拖拽点
             for i in range(0, len(self.__DragPointsList)):
                 if self.__DragPointsList[i].x > x - 8 and self.__DragPointsList[i].x < x + 8 and self.__DragPointsList[i].y > y - 8 and self.__DragPointsList[i].y < y + 8:
                     self.__bDragFlag = True
@@ -119,7 +115,6 @@ class CGammaForm(QWidget, Ui_GammaWidget):
 
 
     def mouseMoveEvent(self, QMouseEvent):
-        # print("鼠标移动事件")
         x = QMouseEvent.x()
         y = QMouseEvent.y()
 
@@ -170,9 +165,9 @@ class CGammaForm(QWidget, Ui_GammaWidget):
             LGamma512Line = [int(x) for x in LGamma512Line if x != '']
             LGamma512.extend(LGamma512Line)
 
-
+        # Choose Gamma curve
         BGamma32 = self.DownSamplePoints(BGamma512)
-        # print(BGamma32)   ###
+
         self.__PointsList.append(Point(0, 512))
         for i in range(32):
             self.__PointsList.append(Point(i * 16, (255 - BGamma32[i]) * 2))
