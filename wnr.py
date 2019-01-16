@@ -8,6 +8,8 @@ import os
 
 # Ui
 from Ui.WNRWidget import Ui_WNRWidget
+# types
+from Utils.KEDAEZTUNE_types import *
 # Log
 from Utils.c_log_new import CLogNew
 # adb
@@ -43,8 +45,6 @@ class TWNR:
         self.Weight_Chroma = []
 
 
-# adb通讯次数
-PULL_NUM = 10
 # txt每行参数4个
 WNR_VALUE_NUM = 4
 
@@ -78,7 +78,7 @@ class CWNRForm(QWidget, Ui_WNRWidget):
             self.__UpdataTWNR()
         else:
             log.info(strLog)   # DebugMK_Log
-            log.info("Adb pull wnrW.txt succeed!")   # DebugMK_Log
+            log.info("Adb pull wnrW.txt failed!")   # DebugMK_Log
 
 
     def PushWNR(self):

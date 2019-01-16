@@ -64,6 +64,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.Log.append("Adb connect failed!")
 
+        self.SendAdbCommand(ADB_COMMAND.NONE_CMD)
+
 
     def SendAdbCommand(self, enumAdbCommand):
         strLog, ret = self.cAdb.AdbCommand(enumAdbCommand)

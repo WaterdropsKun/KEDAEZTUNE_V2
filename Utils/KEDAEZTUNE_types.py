@@ -21,4 +21,6 @@ class Point:
         return Point(self.x - other.x, self.y - other.y)
 
 
+# adb通讯次数
+PULL_NUM = 10
 

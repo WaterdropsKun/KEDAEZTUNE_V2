@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>512</width>
-    <height>512</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,40 +19,289 @@
   <property name="minimumSize">
    <size>
     <width>512</width>
-    <height>512</height>
+    <height>700</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>512</width>
-    <height>512</height>
+    <height>700</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <property name="leftMargin">
-    <number>0</number>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>1</x>
+     <y>1</y>
+     <width>514</width>
+     <height>685</height>
+    </rect>
    </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-  </layout>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="minimumSize">
+       <size>
+        <width>512</width>
+        <height>512</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>512</width>
+        <height>512</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>512</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>512</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Camera</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="rbCamera0">
+           <property name="text">
+            <string>Camera0</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="rbCamera1">
+           <property name="text">
+            <string>Camera1</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>512</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>512</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Gamma</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QRadioButton" name="rbBright">
+           <property name="text">
+            <string>Bright</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="rbNormal">
+           <property name="text">
+            <string>Normal</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="rbLow">
+           <property name="text">
+            <string>Low</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Type and Ratio:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>PullGAMMA</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>PushGAMMA</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GammaWidget</receiver>
+   <slot>PushGAMMA()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>335</x>
+     <y>669</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-2</x>
+     <y>530</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>GammaWidget</receiver>
+   <slot>PullGAMMA()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>672</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>52</x>
+     <y>568</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbBright</sender>
+   <signal>clicked()</signal>
+   <receiver>GammaWidget</receiver>
+   <slot>BrightClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>608</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>588</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbNormal</sender>
+   <signal>clicked()</signal>
+   <receiver>GammaWidget</receiver>
+   <slot>NormalClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>515</x>
+     <y>568</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbLow</sender>
+   <signal>clicked()</signal>
+   <receiver>GammaWidget</receiver>
+   <slot>LowClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>604</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>514</x>
+     <y>635</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>PushGAMMA()</slot>
+  <slot>PullGAMMA()</slot>
+  <slot>BrightClicked()</slot>
+  <slot>NormalClicked()</slot>
+  <slot>LowClicked()</slot>
+ </slots>
 </ui>
