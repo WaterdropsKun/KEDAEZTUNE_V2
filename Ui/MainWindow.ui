@@ -153,6 +153,9 @@
      <string>文件</string>
     </property>
     <addaction name="TestAction"/>
+    <addaction name="GammaAction"/>
+    <addaction name="WNRAction"/>
+    <addaction name="ASFAction"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -163,6 +166,30 @@
    </property>
    <property name="shortcut">
     <string>F12</string>
+   </property>
+  </action>
+  <action name="WNRAction">
+   <property name="text">
+    <string>WNR</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="ASFAction">
+   <property name="text">
+    <string>ASF</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
+  </action>
+  <action name="GammaAction">
+   <property name="text">
+    <string>GAMMA</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
  </widget>

@@ -25,25 +25,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # signal slot
         # 菜单栏信号槽函数关联
         self.TestAction.triggered.connect(self.Test)
+        self.WNRAction.triggered.connect(self.OpenWNRWidget)
+        self.ASFAction.triggered.connect(self.OpenASFWidget)
+        self.GammaAction.triggered.connect(self.OpenGammaWidget)
+
+        # 工具类初始化
+        self.cAdb = CAdb()
+
+        self.Init()
+
+
+    def Init(self):
+        # 初始化操作（adb连接 + 发送命令）
+        self.AdbConnect()
 
         # 初始化子窗口
         self.cWNRForm = CWNRForm()
         self.cASFForm = CASFForm()
         self.cGammaForm = CGammaForm()
-
-        # 工具类初始化
-        self.cAdb = CAdb()
-
-        # 初始化操作（adb连接 + 发送命令）
-        self.AdbConnect()
-        self.SendAdbCommand(ADB_COMMAND.NONE_CMD)
-
-
-    def Test(self):
-        print("Test")   # DebugMK
-        self.SendAdbCommand(ADB_COMMAND.GAMMA_CMD)
-
-        #DebugMK 添加子窗口
+        # DebugMK 添加子窗口
         self.ChildrenForm.addWidget(self.cWNRForm)
         self.ChildrenForm.addWidget(self.cASFForm)
         self.ChildrenForm.addWidget(self.cGammaForm)
@@ -51,6 +51,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cWNRForm.hide()
         self.cGammaForm.hide()
 
+
+    def Test(self):
+        print("Test")   # DebugMK
+
+    def OpenWNRWidget(self):
+        self.SendAdbCommand(ADB_COMMAND.WNR_CMD)
+        self.cWNRForm.hide()
+        self.cASFForm.hide()
+        self.cGammaForm.hide()
+        self.cWNRForm.show()
+
+    def OpenASFWidget(self):
+        self.SendAdbCommand(ADB_COMMAND.ASF_CMD)
+        self.cWNRForm.hide()
+        self.cASFForm.hide()
+        self.cGammaForm.hide()
+        self.cASFForm.show()
+
+    def OpenGammaWidget(self):
+        self.SendAdbCommand(ADB_COMMAND.GAMMA_CMD)
+        self.cASFForm.hide()
+        self.cWNRForm.hide()
+        self.cGammaForm.hide()
         self.cGammaForm.show()
 
 

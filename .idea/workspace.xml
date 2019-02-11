@@ -4,15 +4,19 @@
     <list default="true" id="704c1291-3d5e-4066-95ae-975a942e716d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Files/Logs/DebugMK.log" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Logs/DebugMK.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/a.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Files/result.png" beforeDir="false" afterPath="$PROJECT_DIR$/Files/result.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/run512GammaW.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Files/run512GammaW.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/runGamma.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Files/runGamma.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/wnr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Files/wnr.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/wnrW.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Files/wnrW.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainForm.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainForm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/GammaWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/GammaWidget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/GammaWidget.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/GammaWidget.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/MainWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/MainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/MainWindow.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils/KEDAEZTUNE_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/KEDAEZTUNE_types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/WNRWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/WNRWidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/WNRWidget.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/WNRWidget.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/c_log_old.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/c_log_old.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adb.py" beforeDir="false" afterPath="$PROJECT_DIR$/adb.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gamma.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamma.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wnr.py" beforeDir="false" afterPath="$PROJECT_DIR$/wnr.py" afterDir="false" />
     </list>
@@ -28,55 +32,24 @@
     <SUITE FILE_PATH="coverage/KEDAEZTUNE_V2$c_spline.coverage" NAME="c_spline Coverage Results" MODIFIED="1543223652311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
     <SUITE FILE_PATH="coverage/KEDAEZTUNE_V2$main.coverage" NAME="main Coverage Results" MODIFIED="1542425844241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/KEDAEZTUNE_V2$opencv_test.coverage" NAME="opencv_test Coverage Results" MODIFIED="1543367486919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/KEDAEZTUNE_V2$MainForm.coverage" NAME="MainForm Coverage Results" MODIFIED="1547635471354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/KEDAEZTUNE_V2$MainForm.coverage" NAME="MainForm Coverage Results" MODIFIED="1547778219710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="adb.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/adb.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="12" column="12" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="12" />
-              <folding>
-                <element signature="e#5#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainForm.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainForm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MainForm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="480">
+              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gamma.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gamma.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gamma.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2490">
-              <caret line="170" column="24" lean-forward="true" selection-start-line="170" selection-start-column="24" selection-end-line="170" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#1041#2998#0" />
-                <element signature="e#3031#3969#0" />
-                <element signature="e#4026#4152#0" />
-                <element signature="e#4206#5206#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GammaWidget.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Ui/GammaWidget.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="107" column="57" selection-start-line="107" selection-start-column="57" selection-end-line="107" selection-end-column="57" />
+            <state relative-caret-position="6600">
+              <caret line="220" selection-start-line="220" selection-end-line="220" />
             </state>
           </provider>
         </entry>
@@ -84,11 +57,20 @@
       <file leaf-file-name="wnr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wnr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="80" column="65" lean-forward="true" selection-start-line="62" selection-start-column="4" selection-end-line="80" selection-end-column="65" />
+            <state relative-caret-position="30">
+              <caret line="103" column="19" selection-start-line="103" selection-start-column="19" selection-end-line="103" selection-end-column="19" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WNRWidget.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Ui/WNRWidget.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5580">
+              <caret line="186" selection-start-line="186" selection-end-line="186" />
             </state>
           </provider>
         </entry>
@@ -124,6 +106,7 @@
       <find>BGamma32</find>
       <find>__Gamma64List</find>
       <find>append</find>
+      <find>height</find>
       <find>__cLog</find>
     </findStrings>
   </component>
@@ -150,12 +133,13 @@
         <option value="$PROJECT_DIR$/Utils/c_log.py" />
         <option value="$PROJECT_DIR$/opencv_test.py" />
         <option value="$PROJECT_DIR$/Utils/c_log_new.py" />
-        <option value="$PROJECT_DIR$/adb.py" />
         <option value="$PROJECT_DIR$/Utils/c_spline.py" />
         <option value="$PROJECT_DIR$/Utils/KEDAEZTUNE_types.py" />
-        <option value="$PROJECT_DIR$/wnr.py" />
+        <option value="$PROJECT_DIR$/adb.py" />
+        <option value="$PROJECT_DIR$/Utils/c_log_old.py" />
         <option value="$PROJECT_DIR$/MainForm.py" />
         <option value="$PROJECT_DIR$/gamma.py" />
+        <option value="$PROJECT_DIR$/wnr.py" />
       </list>
     </option>
   </component>
@@ -169,8 +153,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="217" />
-    <option name="y" value="171" />
+    <option name="x" value="191" />
+    <option name="y" value="113" />
     <option name="width" value="1456" />
     <option name="height" value="916" />
   </component>
@@ -182,6 +166,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -203,7 +188,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -328,7 +312,6 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14791666" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32731137" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -339,6 +322,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32731137" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,26 +336,21 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wnr.py</url>
-          <line>74</line>
+          <line>85</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wnr.py</url>
-          <line>104</line>
+          <line>119</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wnr.py</url>
-          <line>142</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/adb.py</url>
-          <line>86</line>
+          <line>87</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="35" />
+      <option name="time" value="37" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -473,20 +452,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/ProgramData/Anaconda3/envs/pyqt/Lib/logging/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="831">
-          <caret line="1058" selection-start-line="1058" selection-end-line="1058" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ui/MainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="104" column="13" selection-start-line="104" selection-start-column="13" selection-end-line="104" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/asf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -501,23 +466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utils/c_log_old.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ui/WNRWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-393">
-          <caret line="142" column="45" lean-forward="true" selection-start-line="142" selection-start-column="45" selection-end-line="142" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -542,33 +490,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/adb.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="12" />
-          <folding>
-            <element signature="e#5#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Utils/c_log_new.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1410">
           <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
-          <folding>
-            <element signature="e#24#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wnr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="80" column="65" lean-forward="true" selection-start-line="62" selection-start-column="4" selection-end-line="80" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -579,27 +504,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainForm.py">
+    <entry file="file://C:/ProgramData/Anaconda3/envs/pyqt/Lib/logging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="1295" column="8" selection-start-line="1295" selection-start-column="8" selection-end-line="1295" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/c_log_old.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ui/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
+          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adb.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#5#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gamma.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2490">
-          <caret line="170" column="24" lean-forward="true" selection-start-line="170" selection-start-column="24" selection-end-line="170" selection-end-column="24" />
+        <state relative-caret-position="6600">
+          <caret line="220" selection-start-line="220" selection-end-line="220" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ui/WNRWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5580">
+          <caret line="186" selection-start-line="186" selection-end-line="186" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wnr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="103" column="19" selection-start-line="103" selection-start-column="19" selection-end-line="103" selection-end-column="19" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1041#2998#0" />
-            <element signature="e#3031#3969#0" />
-            <element signature="e#4026#4152#0" />
-            <element signature="e#4206#5206#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainForm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>

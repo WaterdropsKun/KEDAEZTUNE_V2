@@ -33,6 +33,7 @@ class CAdb(object):
 
         strAdbCmd = "adb connect " + strDeviceIP
         self.__cLog.LogAppend(strAdbCmd)  # DebugMK
+
         ret = subprocess.Popen(strAdbCmd,
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,
@@ -114,7 +115,7 @@ class CAdb(object):
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE).communicate()
-        self.__cLog.LogAppend(str(ret))  # DebugMK
+        # self.__cLog.LogAppend(str(ret))  # DebugMK（setprop没有返回值）
 
         strAdbCommand = "adb shell getprop persist.kedaEzTune.enable"
         ret = subprocess.Popen(strAdbCommand,

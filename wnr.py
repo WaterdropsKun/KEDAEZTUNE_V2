@@ -59,6 +59,13 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
         self.__m_cAdb = CAdb()
 
+        self.__Init()
+
+
+    def __Init(self):
+        strLog, ret = self.__m_cAdb.AdbPushDeviceTxt("wnr")
+        self.__UpdataTWNR()
+
 
     def PullWNR(self):
         """
@@ -68,17 +75,25 @@ class CWNRForm(QWidget, Ui_WNRWidget):
         ret = False
 
         for i in range(PULL_NUM):
-            strLog, ret = self.__m_cAdb.AdbPullDeviceTxt("wnrW")
+            if self.rbCamera0.isChecked():
+                strLog, ret = self.__m_cAdb.AdbPullDeviceTxt("wnrW")
+            elif self.rbCamera1.isChecked():
+                strLog, ret = self.__m_cAdb.AdbPullDeviceTxt("wnrW_2")
             if ret == True:
                 break
+        log.info(strLog)  # DebugMK_Log
 
         if ret == True:
-            log.info(strLog)   # DebugMK_Log
-            log.info("Adb pull wnrW.txt succeed!")   # DebugMK_Log
+            if self.rbCamera0.isChecked():
+                log.info("Adb pull wnrW.txt succeed!")  # DebugMK_Log
+            elif self.rbCamera1.isChecked():
+                log.info("Adb pull wnrW_2.txt succeed!")  # DebugMK_Log
             self.__UpdataTWNR()
         else:
-            log.info(strLog)   # DebugMK_Log
-            log.info("Adb pull wnrW.txt failed!")   # DebugMK_Log
+            if self.rbCamera0.isChecked():
+                log.info("Adb pull wnrW.txt failed!")  # DebugMK_Log
+            elif self.rbCamera1.isChecked():
+                log.info("Adb pull wnrW_2.txt failed!")  # DebugMK_Log
 
 
     def PushWNR(self):
@@ -94,10 +109,10 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
         if ret == True:
             log.info(strLog)   # DebugMK_Log
-            log.info("Adb push wnrW.txt succeed!")   # DebugMK_Log
+            log.info("Adb push wnr.txt succeed!")   # DebugMK_Log
         else:
             log.info(strLog)   # DebugMK_Log
-            log.info("Adb push wnrW.txt failed!")   # DebugMK_Log
+            log.info("Adb push wnr.txt failed!")   # DebugMK_Log
 
 
     def __UpdataTWNR(self):
@@ -139,9 +154,12 @@ class CWNRForm(QWidget, Ui_WNRWidget):
 
 
     def __ReadTWNR(self):
-        # listData以行为元素的列表
-        strFilesPath = os.getcwd() + "\\Files\\wnrW.txt"
+        if self.rbCamera0.isChecked():
+            strFilesPath = os.getcwd() + "\\Files\\wnrW.txt"
+        elif self.rbCamera1.isChecked():
+            strFilesPath = os.getcwd() + "\\Files\\wnrW_2.txt"
 
+        # listData以行为元素的列表
         listData = Utils.python_txt.txtRead(strFilesPath).split()
         log.info(str(listData))   # DebugMK_Log
 

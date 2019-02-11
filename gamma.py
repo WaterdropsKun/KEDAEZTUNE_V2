@@ -54,108 +54,9 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         self.Init()
 
 
-    def paintEvent(self, event):
-        if self.__bPaintFlag:
-            ###
-            self.__qPixmap.fill(Qt.white)
-
-            qPainter = QPainter(self.__qPixmap)
-            qPainter.begin(self.__qPixmap)
-
-            # Draw box
-            size = self.label.size()
-            Height = size.height() - 1
-            Width = size.width() - 1
-            qPen = QPen(Qt.black, 1, Qt.SolidLine)
-            qPainter.setPen(qPen)
-            qPainter.drawLine(0, 0, 0, Height)
-            qPainter.drawLine(0, Height, Width, Height)
-            qPainter.drawLine(Width, Height, Width, 0)
-            qPainter.drawLine(Width, 0, 0, 0)
-
-            # 画Gamma曲线
-            qPainter.setPen(Qt.black)   # qPainter.setPen(QColor(168, 34, 3))
-            self.__cSpline.DataPointsListSet(self.__PointsList)
-            SplinePointsList = self.__cSpline.SplinePointsListGet()
-            nPointNum = len(SplinePointsList) - 1
-            for i in range(nPointNum):
-                qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
-                                  SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
-            # 画拖拽曲线
-            qPainter.setPen(Qt.red)
-            self.__cSpline.DataPointsListSet(self.__DragPointsList)
-            SplinePointsList = self.__cSpline.SplinePointsListGet()
-            nPointNum = len(SplinePointsList) - 1
-            for i in range(nPointNum):
-                qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
-                                  SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
-            # 标记拖拽点
-            qPainter.setBrush(Qt.red)
-            nPointNum = len(self.__DragPointsList) - 1
-            for i in range(nPointNum):
-                qPainter.drawEllipse(self.__DragPointsList[i].x, self.__DragPointsList[i].y, 3, 3)
-
-            qPainter.end()
-
-            # 画布保存成图片
-            self.label.setPixmap(self.__qPixmap)
-            self.__qPixmap.save(os.getcwd() + "\\Files\\result.png")
-
-
-    def mousePressEvent(self, QMouseEvent):
-        if QMouseEvent.button() == Qt.LeftButton:
-            x = QMouseEvent.x()
-            y = QMouseEvent.y()
-
-            # 判断拖拽点横坐标16*16范围是否有点击点，如没有，以插入点为拖拽点
-            for i in range(1, len(self.__DragPointsList)):
-                if x > self.__DragPointsList[i-1].x + 8 and x < self.__DragPointsList[i].x - 8 and y > 0 and y < self.height():
-                    self.__DragPointsList.insert(i, Point(x, y))
-                    self.__bDragFlag = True
-                    self.__nDragPointIndex = i
-                    self.update()
-            # 判断点击点16*16范围是否有拖拽点，如有，以原来点作为拖拽点
-            for i in range(0, len(self.__DragPointsList)):
-                if self.__DragPointsList[i].x > x - 8 and self.__DragPointsList[i].x < x + 8 and self.__DragPointsList[i].y > y - 8 and self.__DragPointsList[i].y < y + 8:
-                    self.__bDragFlag = True
-                    self.__nDragPointIndex = i
-
-            self.__bPaintFlag = True
-
-
-    def mouseReleaseEvent(self, QMouseEvent):
-        if self.__bDragFlag:
-            self.__bDragFlag = False
-
-        if self.__bPaintFlag:
-            self.__bPaintFlag = False
-
-
-    def mouseMoveEvent(self, QMouseEvent):
-        x = QMouseEvent.x()
-        y = QMouseEvent.y()
-
-        # 实时更新拖拽点或合并拖拽点
-        if self.__bDragFlag and self.__nDragPointIndex > 0 and self.__nDragPointIndex < len(self.__PointsList) - 1:
-            if x > self.__DragPointsList[self.__nDragPointIndex - 1].x + 8 and x < self.__DragPointsList[self.__nDragPointIndex + 1].x - 8:
-                self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
-            else:
-                del self.__DragPointsList[self.__nDragPointIndex]
-                self.__bDragFlag = False
-                self.update()
-        # 首尾拖拽点更新
-        if self.__bDragFlag and self.__nDragPointIndex == 0 and x < self.__PointsList[1].x - 20:
-            self.__DragPointsList[0] = Point(x, y)
-        if self.__bDragFlag and self.__nDragPointIndex == len(self.__PointsList) - 1 and x > self.__PointsList[len(self.__PointsList) - 2].x + 20:
-            self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
-
-        if self.__bDragFlag:
-            self.update()
-
-
-    ############################################################
     def Init(self):
-        self.PullGAMMA()
+        strLog, ret = self.__m_cAdb.AdbPushDeviceTxt("runGamma")
+        self.UpdataTGAMMA()
 
 
     def BrightClicked(self):
@@ -182,14 +83,19 @@ class CGammaForm(QWidget, Ui_GammaWidget):
                 strLog, ret = self.__m_cAdb.AdbPullDeviceTxt("run512GammaW_2")
             if ret == True:
                 break
+        log.info(strLog)  # DebugMK_Log
 
         if ret == True:
-            log.info(strLog)   # DebugMK_Log
-            log.info("Adb pull wnrW.txt succeed!")   # DebugMK_Log
+            if self.rbCamera0.isChecked():
+                log.info("Adb pull run512GammaW.txt succeed!")  # DebugMK_Log
+            elif self.rbCamera1.isChecked():
+                log.info("Adb pull run512GammaW_2.txt succeed!")  # DebugMK_Log
             self.UpdataTGAMMA()
         else:
-            log.info(strLog)   # DebugMK_Log
-            log.info("Adb pull wnrW.txt failed!")   # DebugMK_Log
+            if self.rbCamera0.isChecked():
+                log.info("Adb pull run512GammaW.txt failed!")  # DebugMK_Log
+            elif self.rbCamera1.isChecked():
+                log.info("Adb pull run512GammaW_2.txt failed!")  # DebugMK_Log
 
 
     def PushGAMMA(self):
@@ -202,12 +108,13 @@ class CGammaForm(QWidget, Ui_GammaWidget):
         self.SetTGAMMA()
 
         strLog, ret = self.__m_cAdb.AdbPushDeviceTxt("runGamma")
+        log.info(strLog)  # DebugMK_Log
 
         if ret == True:
-            log.info(strLog)   # DebugMK_Log
             log.info("Adb push runGamma.txt succeed!")   # DebugMK_Log
-        else:
+            strLog, ret = self.__m_cAdb.AdbCommand(ADB_COMMAND.GAMMA_CMD)
             log.info(strLog)   # DebugMK_Log
+        else:
             log.info("Adb push runGamma.txt failed!")   # DebugMK_Log
 
 
@@ -310,6 +217,120 @@ class CGammaForm(QWidget, Ui_GammaWidget):
                 Gamma32.append(PointsList[i*16] >> 6)
 
         return Gamma32
+
+
+    ############################################################
+
+    def paintEvent(self, event):
+        if self.__bPaintFlag:
+            ###
+            self.__qPixmap.fill(Qt.white)
+
+            qPainter = QPainter(self.__qPixmap)
+            qPainter.begin(self.__qPixmap)
+
+            # Draw box
+            size = self.label.size()
+            Height = size.height() - 1
+            Width = size.width() - 1
+            qPen = QPen(Qt.black, 1, Qt.SolidLine)
+            qPainter.setPen(qPen)
+            qPainter.drawLine(0, 0, 0, Height)
+            qPainter.drawLine(0, Height, Width, Height)
+            qPainter.drawLine(Width, Height, Width, 0)
+            qPainter.drawLine(Width, 0, 0, 0)
+
+            # 画Gamma曲线
+            qPainter.setPen(Qt.black)   # qPainter.setPen(QColor(168, 34, 3))
+            self.__cSpline.DataPointsListSet(self.__PointsList)
+            SplinePointsList = self.__cSpline.SplinePointsListGet()
+            nPointNum = len(SplinePointsList) - 1
+            for i in range(nPointNum):
+                qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
+                                  SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
+            # 画拖拽曲线
+            qPainter.setPen(Qt.red)
+            self.__cSpline.DataPointsListSet(self.__DragPointsList)
+            SplinePointsList = self.__cSpline.SplinePointsListGet()
+            nPointNum = len(SplinePointsList) - 1
+            for i in range(nPointNum):
+                qPainter.drawLine(SplinePointsList[i].x, SplinePointsList[i].y,
+                                  SplinePointsList[i + 1].x, SplinePointsList[i + 1].y)
+            # 标记拖拽点
+            qPainter.setBrush(Qt.red)
+            nPointNum = len(self.__DragPointsList) - 1
+            for i in range(nPointNum):
+                qPainter.drawEllipse(self.__DragPointsList[i].x, self.__DragPointsList[i].y, 3, 3)
+
+            qPainter.end()
+
+            # 画布保存成图片
+            self.label.setPixmap(self.__qPixmap)
+            self.__qPixmap.save(os.getcwd() + "\\Files\\result.png")
+
+
+    def mousePressEvent(self, QMouseEvent):
+        if QMouseEvent.button() == Qt.LeftButton:
+            x = QMouseEvent.x()
+            y = QMouseEvent.y()
+
+            if x <= 10 or x >= self.label.height() - 10:
+                return
+            if y <= 10 or y >= self.label.height() - 10:
+                return
+
+            # 判断拖拽点横坐标16*16范围是否有点击点，如没有，以插入点为拖拽点
+            for i in range(1, len(self.__DragPointsList)):
+                if x > self.__DragPointsList[i-1].x + 8 and x < self.__DragPointsList[i].x - 8 and y > 0 and y < self.label.height():
+                    self.__DragPointsList.insert(i, Point(x, y))
+                    self.__bDragFlag = True
+                    self.__nDragPointIndex = i
+                    self.update()
+            # 判断点击点16*16范围是否有拖拽点，如有，以原来点作为拖拽点
+            for i in range(0, len(self.__DragPointsList)):
+                if self.__DragPointsList[i].x > x - 8 and self.__DragPointsList[i].x < x + 8 and self.__DragPointsList[i].y > y - 8 and self.__DragPointsList[i].y < y + 8:
+                    self.__bDragFlag = True
+                    self.__nDragPointIndex = i
+
+            self.__bPaintFlag = True
+
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        if self.__bDragFlag:
+            self.__bDragFlag = False
+
+        if self.__bPaintFlag:
+            self.__bPaintFlag = False
+
+
+    def mouseMoveEvent(self, QMouseEvent):
+        x = QMouseEvent.x()
+        y = QMouseEvent.y()
+
+        if x <= 10 or x >= self.label.height() - 10:
+            return
+        if y <= 10 or y >= self.label.height() - 10:
+            return
+
+        # 实时更新拖拽点或合并拖拽点
+        if self.__bDragFlag and self.__nDragPointIndex > 0 and self.__nDragPointIndex < len(self.__PointsList) - 1:
+            if x > self.__DragPointsList[self.__nDragPointIndex - 1].x + 8 and x < self.__DragPointsList[self.__nDragPointIndex + 1].x - 8:
+                self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
+            else:
+                del self.__DragPointsList[self.__nDragPointIndex]
+                self.__bDragFlag = False
+                self.update()
+        # 首尾拖拽点更新
+        if self.__bDragFlag and self.__nDragPointIndex == 0 and x < self.__PointsList[1].x - 20:
+            self.__DragPointsList[0] = Point(x, y)
+        if self.__bDragFlag and self.__nDragPointIndex == len(self.__PointsList) - 1 and x > self.__PointsList[len(self.__PointsList) - 2].x + 20:
+            self.__DragPointsList[self.__nDragPointIndex] = Point(x, y)
+
+        if self.__bDragFlag:
+            self.update()
+
+
+
 
 
 

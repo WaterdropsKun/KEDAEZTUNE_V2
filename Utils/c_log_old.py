@@ -7,7 +7,7 @@ class CLogOld(object):
 
 
     def LogClear(self):
-        self.__strLog = "\n----------Log----------\n"
+        self.__strLog = "----------Log----------\n"
         self.__strLog += inspect.stack()[1][1] + '\n'        # 文件位置
         self.__strLog += inspect.stack()[1][3] + '\n'        # 函数名
         self.__strLog += str(inspect.stack()[1][2]) + '\n'   # 行号
